@@ -1,0 +1,16 @@
+{
+  "name": "oc-organisation-invite-staff",
+  "description": "Element to manage staff invitations for organisations on the Ordercloud platform",
+  "main": "oc-organisation-invite-staff.html",
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.4.0",
+    "oc-invite-staff": "git://github.com/oc-elements/oc-invite-staff.git#1.x",
+    "oc-organisation-api": "git://github.com/oc-elements/oc-organisation-api.git#1.x"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.0.0",
+    "web-component-tester": "^4.0.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
+  }
+}
