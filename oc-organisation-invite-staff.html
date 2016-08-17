@@ -2,6 +2,7 @@
 
 <link rel="import" href="../oc-invite-staff/oc-invite-staff.html">
 <link rel="import" href="../oc-organisation-api/oc-organisation-api.html">
+<link rel="import" href="../oc-authorization-api/oc-authorization-api.html">
 
 <!--
 `oc-organisation-invite-staff`
@@ -19,8 +20,10 @@ Element to manage staff invitations for organisations on the Ordercloud platform
     </style>
 
     <oc-organisation-api id="orgApi"></oc-organisation-api>
+    <oc-authorization-api id="authApi"></oc-authorization-api>
 
     <oc-invite-staff></oc-invite-staff>
+
   </template>
 
   <script>
@@ -29,7 +32,11 @@ Element to manage staff invitations for organisations on the Ordercloud platform
       is: 'oc-organisation-invite-staff',
 
       properties: {
-
+        organisationId: Number,
+        loading : {
+          type: Boolean,
+          notify: true
+        },
       },
 
     });
