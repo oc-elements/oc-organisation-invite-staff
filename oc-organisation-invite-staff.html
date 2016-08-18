@@ -3,12 +3,13 @@
 <link rel="import" href="../oc-invite-staff/oc-invite-staff.html">
 <link rel="import" href="../oc-organisation-api/oc-organisation-api.html">
 <link rel="import" href="../oc-authorization-api/oc-authorization-api.html">
+<link rel="import" href="../oc-invitations-api/oc-invitations-api.html">
 
 <!--
 `oc-organisation-invite-staff`
 Element to manage staff invitations for organisations on the Ordercloud platform
 
-@demo demo/index.html 
+@demo demo/index.html
 -->
 
 <dom-module id="oc-organisation-invite-staff">
@@ -21,8 +22,9 @@ Element to manage staff invitations for organisations on the Ordercloud platform
 
     <oc-organisation-api id="orgApi"></oc-organisation-api>
     <oc-authorization-api id="authApi"></oc-authorization-api>
+    <oc-invitations-api id="inviteApi"></oc-invitations-api>
 
-    <oc-invite-staff></oc-invite-staff>
+    <oc-invite-staff staff-types="[[_groups]]"></oc-invite-staff>
 
   </template>
 
@@ -38,6 +40,37 @@ Element to manage staff invitations for organisations on the Ordercloud platform
           notify: true
         },
       },
+
+      listeners : {
+        "invite-send" : "_sendInvite"
+      },
+
+      refresh : function(){
+        console.log(this.organisationId);
+        if(this.organisationId){
+
+          this._getOrgGroups(this.organisationId)
+        }
+
+      },
+
+      _getOrgGroups : function(organisationId){
+        this.$.authApi.getOrganisationGroups(organisationId)
+                .then(function(request){
+                  this._groups = request.response.results;
+                }.bind(this))
+                .catch(this.fire.bind(this, 'options_error', 'Could not create option set'))
+                .finally(this.set.bind(this, 'loading', false));
+      },
+
+      _sendInvite : function(e){
+        this.loading = true;
+        this.$.inviteApi._sendInvite(this.organisationId, e.detail)
+                .catch(this.fire.bind(this, 'options_error', 'Could not create option set'))
+                .finally(this.set.bind(this, 'loading', false));
+      }
+
+
 
     });
   </script>
