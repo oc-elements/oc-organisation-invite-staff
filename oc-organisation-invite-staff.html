@@ -65,7 +65,7 @@ Element to manage staff invitations for organisations on the Ordercloud platform
 
       _sendInvite : function(e){
         this.loading = true;
-        this.$.inviteApi._sendInvite(this.organisationId, e.detail)
+        this.$.inviteApi.createInvitation(this.organisationId, e.detail)
                 .catch(this.fire.bind(this, 'options_error', 'Could not create option set'))
                 .finally(this.set.bind(this, 'loading', false));
       }
